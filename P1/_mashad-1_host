@@ -1,4 +1,1 @@
 FROM alpine:latest
-
-# Installing busybox
-RUN apk update && apk add busybox
