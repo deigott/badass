@@ -1,0 +1,9 @@
+FROM frrouting/frr:v8.3.0
+
+# Installing busybox
+RUN apk update && apk add busybox
+
+FROM frrouting/frr
+ENV DAEMONS="zebra bgpd ospfd isisd"
+
+COPY ./_mashad-2_configuration /etc/frr/daemons
