@@ -1,14 +1,8 @@
-# Use the latest official FRRouting image as the base image
-FROM frrouting/frr:latest
+FROM frrouting/frr:v8.3.0
 
-# Update the package repository and install BusyBox
-RUN apk update && apk add busybox
+# Turn on each additionally required service
+RUN sed -i 's/bgpd=no/bgpd=yes/' /etc/frr/daemons
+RUN sed -i 's/ospfd=no/ospfd=yes/' /etc/frr/daemons
+RUN sed -i 's/isisd=no/isisd=yes/' /etc/frr/daemons
 
-# Configure FRRouting to enable specific daemons (bgpd, ospfd, isisd)
-RUN sed -i -e 's/bgpd=no/bgpd=yes/g' -e 's/ospfd=no/ospfd=yes/g' -e 's/isisd=no/isisd=yes/g' /etc/frr/daemons
-
-# Remove the staticd daemon from the default FRRouting startup
-RUN sed -i '/^staticd/s/^/#/' /etc/frr/daemons
-
-# Specify the command to run when the container starts
-CMD ["/usr/lib/frr/frrinit.sh"]
+RUN rm -rf /usr/lib/frr/staticd
