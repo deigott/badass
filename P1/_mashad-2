@@ -6,3 +6,5 @@ RUN sed -i 's/ospfd=no/ospfd=yes/' /etc/frr/daemons
 RUN sed -i 's/isisd=no/isisd=yes/' /etc/frr/daemons
 
 RUN rm -rf /usr/lib/frr/staticd
+
+ENTRYPOINT ["/usr/lib/frr/frrinit.sh", "start"]
