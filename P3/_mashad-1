@@ -36,33 +36,17 @@ interface lo
 
 ! Configure BGP (Border Gateway Protocol)
 router bgp 1
-
-! Define a BGP peer group named "bgplo"
 neighbor bgplo peer-group
-
-! Specify that the peer group uses the internal BGP AS number
 neighbor bgplo remote-as internal
-
-! Set the update source for the peer group to the loopback interface (lo)
 neighbor bgplo update-source lo
-
-! Define a BGP listen range for the specified IP range using the peer group "fabric"
-bgp listen range 1.1.1.0/29 peer-group fabric
+bgp listen range 1.1.1.0/29 peer-group bgplo
 
 ! Configure the address family for Layer 2 VPN EVPN (l2vpn evpn)
 address-family l2vpn evpn
-
-! Activate the BGP peer group "bgplo" within the address family
 neighbor bgplo activate
-
-! Configure the BGP peer group as a route reflector client
 neighbor bgplo route-reflector-client
-
-! Exit the address family configuration
 exit-address-family
 
 ! Configure OSPF (Open Shortest Path First)
 router ospf
-
-! Save the configuration
 do write
