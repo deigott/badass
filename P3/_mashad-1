@@ -22,14 +22,15 @@ interface lo
  ip ospf area 0
 
 router bgp 1
- neighbor fabric peer-group
- neighbor fabric remote-as internal
- neighbor fabric update-source lo
- bgp listen range 1.1.1.0/29 peer-group fabric
- address-family l2vpn evpn
-  neighbor fabric activate
-  neighbor fabric route-reflector-client
- exit-address-family
+neighbor bgplo peer-group
+neighbor bgplo remote-as internal
+neighbor bgplo update-source lo
+bgp listen range 1.1.1.0/29 peer-group fabric
+
+address-family l2vpn evpn
+neighbor bgplo activate
+neighbor bgplo route-reflector-client
+exit-address-family
 
 router ospf
 do write
