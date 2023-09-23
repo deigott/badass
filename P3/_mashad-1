@@ -1,36 +1,68 @@
+! Enter vtysh for configuration
 vtysh
 enable
+
+! Enter global configuration mode
 configure terminal
+
+! Set the hostname for the router
 hostname _mashad-1
+
+! Disable IPv6 forwarding
 no ipv6 forwarding
+
+! Enable integrated VTYSH configuration
 service integrated-vtysh-config
 
+! Configure Ethernet interface eth0
 interface eth0
- ip address 10.1.1.1/30
- ip ospf area 0
+  ip address 10.1.1.1/30
+  ip ospf area 0
 
+! Configure Ethernet interface eth1
 interface eth1
- ip address 10.1.1.5/30
- ip ospf area 0
+  ip address 10.1.1.5/30
+  ip ospf area 0
 
+! Configure Ethernet interface eth2
 interface eth2
- ip address 10.1.1.9/30
- ip ospf area 0
+  ip address 10.1.1.9/30
+  ip ospf area 0
 
+! Configure loopback interface lo
 interface lo
- ip address 1.1.1.1/32
- ip ospf area 0
+  ip address 1.1.1.1/32
+  ip ospf area 0
 
+! Configure BGP (Border Gateway Protocol)
 router bgp 1
+
+! Define a BGP peer group named "bgplo"
 neighbor bgplo peer-group
+
+! Specify that the peer group uses the internal BGP AS number
 neighbor bgplo remote-as internal
+
+! Set the update source for the peer group to the loopback interface (lo)
 neighbor bgplo update-source lo
+
+! Define a BGP listen range for the specified IP range using the peer group "fabric"
 bgp listen range 1.1.1.0/29 peer-group fabric
 
+! Configure the address family for Layer 2 VPN EVPN (l2vpn evpn)
 address-family l2vpn evpn
+
+! Activate the BGP peer group "bgplo" within the address family
 neighbor bgplo activate
+
+! Configure the BGP peer group as a route reflector client
 neighbor bgplo route-reflector-client
+
+! Exit the address family configuration
 exit-address-family
 
+! Configure OSPF (Open Shortest Path First)
 router ospf
+
+! Save the configuration
 do write
