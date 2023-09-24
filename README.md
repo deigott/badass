@@ -1,4 +1,5 @@
 # BGP at the Doors of Autonomous Systems (BADASS)
+<img src="https://media.licdn.com/dms/image/C4E12AQHju1zPrndgsg/article-inline_image-shrink_1000_1488/0/1652626726913?e=1700092800&v=beta&t=2F_VUG5C9zuC5i5I1epYav5S6DTTQNaEqskix2fJ72Q" />
 
 Badass is a simulation and configuration of networks using GNS3 with docker images.
 
